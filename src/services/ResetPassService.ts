@@ -111,6 +111,6 @@ export const resetPasswordService = async (
 			message: "password reset successfully",
 		});
 	} catch (error) {
-		res.render("not-found", { error: "Something Wrong!" });
+		next(createError(500, "Internal Server Error"));
 	}
 };

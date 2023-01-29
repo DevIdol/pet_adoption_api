@@ -119,6 +119,6 @@ export const getFavoriteService = async (
             data: fav,
         });
     } catch (error) {
-        res.render("not-found", { error: "Something Wrong!" });
+        next(createError(500, "Internal Server Error"));
     }
 };
