@@ -101,8 +101,8 @@ localhost:8080/api/donations
 - **Installation**
 
 ```
-git clone git@github.com:DevIdol/pet_adoption
-cd pet_adoption
+git clone git@github.com:DevIdol/pet_adoption_api
+cd pet_adoption_api
 yarn
 yarn dev
 
