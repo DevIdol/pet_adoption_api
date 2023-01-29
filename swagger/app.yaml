@@ -1,0 +1,1451 @@
+openapi: 3.0.2
+servers:
+  - url: http://127.0.0.1:8080
+info:
+  description: OpenAPI Specification for Pet Adoption
+  title: Swagger API Doc for Pet Adoption
+  version: 1.0.0
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: access_token
+  schemas:
+    ImageUpload:
+      type: object
+      properties:
+        images:
+          type: string
+          format: binary
+          description: "name of file"
+        fileType:
+          type: string
+          enum: [jpeg, png]
+        name:
+          type: string
+        breed:
+          type: string
+        age:
+          type: string
+        size:
+          type: string
+          enum: [Big, Medium, Small]
+        sex:
+          type: string
+          enum: [male, female]
+        kind:
+          type: string
+          enum: [cat, dog, other]
+        description:
+          type: string
+        isAvailable:
+          type: boolean
+          enum: [true, false]
+
+tags:
+  - name: Authentication
+    description: Operatins about Register, Login & Logout
+  - name: Email Verification
+    description: Operation about Email Validation
+  - name: User Management
+    description: Operations about user management
+  - name: Forgot Password
+    description: Operations about Forgotpassword
+  - name: Pets
+    description: Operation about Pets
+  - name: Favorite
+    description: Operations about Favorite
+  - name: Adoption
+    description: Operations about Adoption
+  - name: Donations
+    description: Operation about Donations
+  - name: Articles
+    description: Operation about Pet Articles
+
+#================ Authentication ==========================
+paths:
+  # Register
+  /api/auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: User Registration
+      requestBody:
+        description: Create a new user
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "Joseph"
+                email:
+                  type: string
+                  example: "devidol.mm@gmail.com"
+                password:
+                  type: string
+                  example: "123456"
+      responses:
+        "201":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Plase check your email to login"
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: "63a92c374f4f7128f04c955c"
+                      username:
+                        type: string
+                        example: "Joseph"
+                      email:
+                        type: string
+                        example: "devidol.mm@gmail.com"
+                      password:
+                        type: string
+                        example: "$2b$12$3baIXiS0iEhGJlk8ja5LmuslXIrABKNHPYxmY/cDrKBhbKV2TMEBq"
+                      favorities:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                      adoptions:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                      verified:
+                        type: boolean
+                        example: false
+                      isAdmin:
+                        type: boolean
+                        example: false
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: number
+                    example: 400
+                  message:
+                    type: string
+                    example: "Email already exist"
+  #Login
+  /api/auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: User Login
+      requestBody:
+        description: Login for User
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "devidol.mm@gmail.com"
+                password:
+                  type: string
+                  example: "123456"
+      security: []
+      responses:
+        "200":
+          description: Successful operation
+          headers:
+            Set-Cookie:
+              schema:
+                type: string
+                example: access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYzZDI3NWM1OTQxZWJiMTVhMjcyYWFlOSIsInVzZXJuYW1lIjoiSm9zZXBoIiwiZW1haWwiOiJkZXZpZG9sLm1tQGdtYWlsLmNvbSIsInByb2ZpbGUiOiIiLCJpc0FkbWluIjpmYWxzZX0sImlhdCI6MTY3NDczNzg1OSwiZXhwIjoxNjc1MzQyNjU5fQ.KVGoFVZrdITB16-8ESE8R6DqyyCGwY9Ions7PPAiT5A; Path=/; HttpOnly; Expires=Thu, 23 Nov 2023 15:35:51 GMT;
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Logged in Successfully"
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYzZDI3NWM1OTQxZWJiMTVhMjcyYWFlOSIsInVzZXJuYW1lIjoiSm9zZXBoIiwiZW1haWwiOiJkZXZpZG9sLm1tQGdtYWlsLmNvbSIsInByb2ZpbGUiOiIiLCJpc0FkbWluIjpmYWxzZX0sImlhdCI6MTY3NDczNzg1OSwiZXhwIjoxNjc1MzQyNjU5fQ.KVGoFVZrdITB16-8ESE8R6DqyyCGwY9Ions7PPAiT5A"
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: number
+                    example: 400
+                  message:
+                    type: string
+                    example: "Invalid email or password"
+
+  #logout
+  /api/auth/logout/{userId}:
+    post:
+      security:
+        - cookieAuth: []
+      tags:
+        - Authentication
+      summary: logout user
+      description: This can only be done by the user.
+      operationId: userId
+      parameters:
+        - name: userId
+          in: path
+          description: userId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Logged out successfully"
+        "401":
+          description: It's not your account
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: number
+                    example: 401
+                  message:
+                    type: string
+                    example: "It's not your account"
+
+  #=================== User Management ======================
+
+  #email verify
+  /api/users/{userId}/verify/{token}:
+    get:
+      tags:
+        - Email Verification
+      summary: Get  Verify Email
+      description: verify email address
+      operationId: get email confirm
+      parameters:
+        - name: userId
+          in: path
+          description: userId from path
+          required: true
+          schema:
+            type: string
+        - name: token
+          in: path
+          description: token from path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Email Verified Successfully"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: number
+                    example: 404
+                  message:
+                    type: string
+                    example: "Token Not Found"
+
+  #get user
+  /api/users/{userId}:
+    get:
+      security:
+        - cookieAuth: []
+      tags:
+        - User Management
+      summary: get user
+      description: This can only be done by the logged in user.
+      operationId: getUserId
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to return
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    properties:
+                      _id:
+                        type: string
+                        example: "63a92c374f4f7128f04c955c"
+                      username:
+                        type: string
+                        example: "Joseph"
+                      email:
+                        type: string
+                        example: "devidol.mm@gmail.com"
+                      password:
+                        type: string
+                        example: "$2b$12$3baIXiS0iEhGJlk8ja5LmuslXIrABKNHPYxmY/cDrKBhbKV2TMEBq"
+                      favorities:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                      adoptions:
+                        type: array
+                        items:
+                          type: object
+                        example: []
+                      verified:
+                        type: boolean
+                        example: false
+                      isAdmin:
+                        type: boolean
+                        example: false
+        "401":
+          description: You are not Authorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: number
+                    example: 401
+                  message:
+                    type: string
+                    example: "You are not authorized"
+    #update
+    put:
+      security:
+        - cookieAuth: []
+      tags:
+        - User Management
+      summary: update user
+      operationId: updateUserId
+      parameters:
+        - name: userId
+          in: path
+          description: update user with id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existing user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: "DevIdol"
+                email:
+                  type: string
+                  example: "devidol.mm@gmail.com"
+                password:
+                  type: string
+                  example: "123456"
+      responses:
+        "200":
+          description: Updated Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: object
+                    example:
+                      {
+                        "_id": "63d275c5941ebb15a272aae9",
+                        "username": "DevIdol",
+                        "email": "devidol.mm@gmail.com",
+                        "password": "123456",
+                        "profile": "",
+                        "favorites": [],
+                        "adoptions": [],
+                        "verified": true,
+                        "isAdmin": true,
+                        "__v": 0,
+                      }
+
+        "401":
+          description: It's not your account
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: number
+                    example: 401
+                  message:
+                    type: string
+                    example: "It's not your account"
+    #delete account
+    post:
+      security:
+        - cookieAuth: []
+      tags:
+        - User Management
+      summary: Delete  account
+      operationId: deleteAccount
+      parameters:
+        - name: userId
+          in: path
+          description: delete with userId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Enter current password
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: "123456"
+      responses:
+        "200":
+          description: Deleted Successfully!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Deleted Successfully"
+
+        "400":
+          description: Validate Password
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: number
+                    example: 400
+                  message:
+                    type: string
+                    example: "Your password is wrong."
+
+  # =================== Frogot Password ==============
+  /api/forgot-password:
+    post:
+      tags:
+        - Forgot Password
+      summary: send mail
+      description: send mail to change password
+      responses:
+        "200":
+          description: Return URL Link
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Please Check your email to change password!
+
+  /api/forgot-password/{userId}/{token}:
+    get:
+      tags:
+        - Forgot Password
+      summary: get url
+      description: get url to change password
+      parameters:
+        - name: userId
+          in: path
+          description: userId to change pass
+          required: true
+          schema:
+            type: string
+        - name: token
+          in: path
+          description: userId to change pass
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: URL Success
+
+    post:
+      tags:
+        - Forgot Password
+      summary: change new password
+      description: Operations about New Password
+      parameters:
+        - name: userId
+          in: path
+          description: userId to change pass
+          required: true
+          schema:
+            type: string
+        - name: token
+          in: path
+          description: userId to change pass
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Password Change Successfully
+
+  #================== Pet =========================
+  /api/pets:
+    get:
+      tags:
+        - Pets
+      summary: Get all Pets
+      description: Get all pets added by admn.
+      responses:
+        "200":
+          description: Return all pets
+  /api/pets/{petId}:
+    get:
+      tags:
+        - Pets
+      summary: Get Pet Detail
+      description: Check pet detail
+      parameters:
+        - name: petId
+          in: path
+          description: delete with userId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Return pet detail
+
+  #================= Favorite =========================
+  /api/favorites/{userId}:
+    get:
+      security:
+        - cookieAuth: []
+      tags:
+        - Favorite
+      summary: Get all Favorites
+      description: Get all favorites
+      operationId: userIdINFav
+      parameters:
+        - name: userId
+          in: path
+          description: userId to fav
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Return your Favorites
+
+  /api/favorites/{userId}/{petId}:
+    #create favorite
+    post:
+      security:
+        - cookieAuth: []
+      tags:
+        - Favorite
+      summary: Saved Favorite
+      description: Operations about Favorite
+      parameters:
+        - name: userId
+          in: path
+          description: saved and unsaved userId
+          required: true
+          schema:
+            type: string
+        - name: petId
+          in: path
+          description: saved and unsaved petId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Saved Favorite and Removed From Favorite
+    #delete favorite
+    delete:
+      security:
+        - cookieAuth: []
+      tags:
+        - Favorite
+      summary: Delete favorite
+      operationId: deleteFavID
+      parameters:
+        - name: userId
+          in: path
+          description: userId to delete
+          required: true
+          schema:
+            type: string
+        - name: petId
+          in: path
+          description: petId to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted Successfully!
+        "400":
+          description: Invalid value
+
+  # ================= Adoptions =====================
+  /api/adoptions:
+    get:
+      tags:
+        - Adoption
+      summary: Get all Adoption
+      description: Get all adoption
+      responses:
+        "200":
+          description: Return all Adoption
+
+  /api/adoptions/{userId}:
+    get:
+      security:
+        - cookieAuth: []
+      tags:
+        - Adoption
+      summary: Get adoption
+      description: Get my adoption
+      parameters:
+        - name: userId
+          in: path
+          description: userId to adoption
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Return my adoption
+
+  /api/adoptions/{userId}/{petId}:
+    #create adoption
+    post:
+      security:
+        - cookieAuth: []
+      tags:
+        - Adoption
+      summary: adoption register
+      description: Operations about Adoption
+      parameters:
+        - name: userId
+          in: path
+          description: adoption register form
+          required: true
+          schema:
+            type: string
+        - name: petId
+          in: path
+          description: adoption register form
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Adoption Register Success
+    #delete adoption
+    delete:
+      security:
+        - cookieAuth: []
+      tags:
+        - Adoption
+      summary: Delete adoption
+      operationId: deleteAdoptionID
+      parameters:
+        - name: userId
+          in: path
+          description: userId to delete adop
+          required: true
+          schema:
+            type: string
+        - name: petId
+          in: path
+          description: petId to delete adop
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted Successfully!
+        "400":
+          description: Invalid value
+
+  # ================= Article =====================
+  /api/articles:
+    get:
+      tags:
+        - Articles
+      summary: Get all Articles
+      description: Get all articles added by admn.
+      responses:
+        "200":
+          description: Return all Articles
+
+  # ================== Donation ====================
+  /api/donations:
+    get:
+      tags:
+        - Donations
+      summary: Get all donation requests
+      description: Get all donation requets make by admin.
+      responses:
+        "200":
+          description: Return all Donation Requests
+
+  #================== Admin Dashboard =========================
+  #get all user
+  /api/admin/users:
+    get:
+      security:
+        - cookieAuth: []
+      tags:
+        - User Management
+      summary: get users from admin
+      description: get all user from admin
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data:
+                    type: array
+                    items:
+                      type: object
+                    example:
+                      [
+                        {
+                          "_id": "63c76e37afd8d31a3060facd",
+                          "username": "Joseph",
+                          "email": "devidol.mm@gmail.com",
+                          "password": "$2b$12$75YFjZaC/1AoBMfmFqTmA.p0f3PLojT38OdurVPD7Rc8dNmZJt0Z6",
+                          "profile": "",
+                          "favorites": [],
+                          "verified": true,
+                          "isAdmin": true,
+                          "__v": 0,
+                        },
+                        {
+                          "_id": "63c99336f297838e72b32bc6",
+                          "username": "DevIdol",
+                          "email": "ucsk.mm@gmail.com",
+                          "password": "$2b$12$2seXcQcbNlC5umTrs8adEe1fmzfBsFxpxdihTSGvb1H2BnLqVo7t2",
+                          "profile": "",
+                          "favorites": [],
+                          "verified": true,
+                          "isAdmin": false,
+                          "__v": 0,
+                        },
+                      ]
+
+        "401":
+          description: You are not Admin
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: number
+                    example: 401
+                  message:
+                    type: string
+                    example: "You are not admin"
+
+  #delete user from admin
+  /api/admin/users/{userId}:
+    delete:
+      security:
+        - cookieAuth: []
+      tags:
+        - User Management
+      summary: Delete  account
+      operationId: deleteAccountFromAdmin
+      parameters:
+        - name: userId
+          in: path
+          description: delete with userId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted Successfully!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Deleted Mg Mg"
+        "404":
+          description: User Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: number
+                    example: 404
+                  message:
+                    type: string
+                    example: User Not Found
+
+  #aproved user from admin
+  /api/admin/approved-user/{userId}:
+    put:
+      security:
+        - cookieAuth: []
+      tags:
+        - User Management
+      summary: verified user
+      operationId: approvedUserId
+      parameters:
+        - name: userId
+          in: path
+          description: approved user with id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Verified Email Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Verified Mg Mg Or Unverified Mg Mg
+
+        "404":
+          description: User Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: number
+                    example: 404
+                  message:
+                    type: string
+                    example: User Not Found
+
+  #approved to be admin
+  /api/admin/approved-admin/{userId}:
+    put:
+      security:
+        - cookieAuth: []
+      tags:
+        - User Management
+      summary: approved admin
+      operationId: updateUserIdWithAdmin
+      parameters:
+        - name: userId
+          in: path
+          description: approved user to be admin with id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Approved Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Now Mg Mg is Admin Or Mg Mg is removed from admin team
+
+        "404":
+          description: User Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: number
+                    example: 404
+                  message:
+                    type: string
+                    example: User Not Found
+
+  #delete adoption from admin
+  /api/adoptions/{userId}/{adoId}:
+    delete:
+      security:
+        - cookieAuth: []
+      tags:
+        - User Management
+      summary: Delete  adoption
+      operationId: deleteAdoption
+      parameters:
+        - name: userId
+          in: path
+          description: required userId
+          required: true
+          schema:
+            type: string
+        - name: adoId
+          in: path
+          description: required adoId
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted Successfully!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Removed Success"
+        "404":
+          description: Adoption Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: number
+                    example: 404
+                  message:
+                    type: string
+                    example: Adoption Not Found
+
+  #available adoption
+  /api/admin/adoable-pets/{petId}:
+    put:
+      security:
+        - cookieAuth: []
+      tags:
+        - User Management
+      summary: adoption
+      operationId: updatePetId
+      parameters:
+        - name: petId
+          in: path
+          description: available pet with id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Operation Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: This pet is available for adoption Or This pet is out
+
+        "404":
+          description: Pet Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  status:
+                    type: number
+                    example: 404
+                  message:
+                    type: string
+                    example: Pet Not Found
+
+  #create pet
+  /api/admin/pets:
+    post:
+      security:
+        - cookieAuth: []
+      tags:
+        - Pets
+      summary: Create a new pet
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/ImageUpload"
+              parameters:
+                - in: formData
+                  name: images
+                  type: file
+                  required: true
+                  description: The image to upload
+      responses:
+        "200":
+          description: Success
+        "405":
+          description: Invalid value
+
+  #delete pet
+  /api/admin/pets/{petId}:
+    put:
+      security:
+        - cookieAuth: []
+      tags:
+        - Pets
+      summary: Update a pet
+      operationId: updatePetIdWithAdmin
+      parameters:
+        - name: petId
+          in: path
+          description: ID of pet to return
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/ImageUpload"
+              parameters:
+                - in: formData
+                  name: images
+                  type: file
+                  description: The image to upload
+      responses:
+        "200":
+          description: Success
+        "405":
+          description: Invalid value
+    #delete pet
+    delete:
+      security:
+        - cookieAuth: []
+      tags:
+        - Pets
+      summary: Delete a pet
+      operationId: deletePetId
+      parameters:
+        - name: petId
+          in: path
+          description: Pet Id to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted Successfully!
+        "405":
+          description: Invalid value
+
+  #create article
+  /api/admin/articles:
+    post:
+      security:
+        - cookieAuth: []
+      tags:
+        - Articles
+      summary: Create a new article
+      requestBody:
+        description: Create a new article
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "What is the most popular dog breed in the USA?"
+                description:
+                  description: string
+                  example: What are the most popular dog breeds in the US? Depends who you ask! From Retrievers to German Shepards, there are many fan favorites that come to mind.
+                category:
+                  type: string
+                  example: "dog"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                    example: "What is the most popular dog breed in the USA?"
+                  description:
+                    description: string
+                    example: desc
+
+                  category:
+                    type: string
+                    example: "cat"
+                    enum: ["dog", "cat"]
+        "405":
+          description: Invalid Input
+
+  /api/admin/articles/{articleId}:
+    #update article
+    put:
+      security:
+        - cookieAuth: []
+      tags:
+        - Articles
+      summary: Update Article
+      operationId: updateArticleId
+      parameters:
+        - name: articleId
+          in: path
+          description: ID of article to return
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existing article
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Cool Dog Names"
+                description:
+                  type: string
+                  example: Description
+                category:
+                  type: string
+                  example: "cat"
+      responses:
+        "200":
+          description: Updated successfully!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: "63c2aef7ba60c0506ec9c212"
+                  title:
+                    type: string
+                    example: "Cool Dog Names"
+                  description:
+                    type: string
+                    example: Description
+                  category:
+                    type: string
+                    example: "cat"
+                  status:
+                    type: boolean
+                    example: true
+                  createdAt:
+                    type: string
+                    format: date
+                  updatedAt:
+                    type: string
+                    format: date
+        "405":
+          description: Invalid input
+    #delete article
+    delete:
+      security:
+        - cookieAuth: []
+      tags:
+        - Articles
+      summary: Delete an article
+      operationId: deleteArticleId
+      parameters:
+        - name: articleId
+          in: path
+          description: Article Id to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted Successfully!
+        "400":
+          description: Invalid value
+
+  #create donatrion
+  /api/admin/dontions:
+    post:
+      security:
+        - cookieAuth: []
+      tags:
+        - Donations
+      summary: Create a new donation request
+      requestBody:
+        description: Create a new donation request
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                itemName:
+                  type: string
+                  example: "Cat Food Bag"
+                quantity:
+                  type: string
+                  example: "5"
+                description:
+                  type: string
+                  example: "To feed the cats"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  itemName:
+                    type: string
+                    example: "Cat food bag"
+                  quantity:
+                    type: string
+                    example: "5"
+                  description:
+                    type: string
+                    example: "To feed cats"
+        "405":
+          description: Invalid Input
+
+  /api/admin/donations/{donationId}:
+    #update donation
+    put:
+      security:
+        - cookieAuth: []
+      tags:
+        - Donations
+      summary: Update donation request
+      operationId: updateDonationId
+      parameters:
+        - name: donationId
+          in: path
+          description: ID of donation request to return
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existing donation request
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                itemName:
+                  type: string
+                  example: "Dog food bag"
+                quantity:
+                  type: string
+                  example: "6"
+                description:
+                  type: string
+                  example: "To feed the dogs"
+      responses:
+        "200":
+          description: Updated successfully!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: "63c2aef7ba60c0506ec9c212"
+                  itemName:
+                    type: string
+                    example: "itemName Updated"
+                  quantity:
+                    type: string
+                    example: "Quantity Updated"
+                  description:
+                    type: string
+                    example: "Description Updated"
+                  status:
+                    type: boolean
+                    example: true
+                  createdAt:
+                    type: string
+                    format: date
+                  updatedAt:
+                    type: string
+                    format: date
+        "405":
+          description: Invalid input
+    #delete donation
+    delete:
+      security:
+        - cookieAuth: []
+      tags:
+        - Donations
+      summary: Delete a donation request
+      operationId: deleteDonationId
+      parameters:
+        - name: donationId
+          in: path
+          description: Donation Id to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted Successfully!
+        "400":
+          description: Invalid value
