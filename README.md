@@ -3,12 +3,12 @@
 - **.env file**
 
 ```
-PORT = 8000
+PORT = 8080
 MONGODB = mongodb+srv://DevIdol:uxYDUUEv5ihgtFhz@cluster0.aegnn8x.mongodb.net/pet_adoption
 
 SALT = 12
 
-BASE_URL = http://localhost:8000
+BASE_URL = http://localhost:8080
 MAIL_CENTER = petadoption.mm@gmail.com
 MAIL_PASS = ozoiaelkkidcysom
 MAIL_CHANGE = petadoption.center.mm@gmail.com
@@ -26,68 +26,68 @@ SECRET_KEY = 45a087d6af0921796ed3b5c0f827a1e75e3300b8ad9fe6f35dd03bce35585e6b
 - **URL Authentication**
 
 ```
-localhost:8000/api/auth/register
+localhost:8080/api/auth/register
 
-localhost:8000/api/auth/login
+localhost:8080/api/auth/login
 
-localhost:8000/api/auth/logout
+localhost:8080/api/auth/logout
 ```
 
 - **URL Email Verification**
 
 ```
-localhost:8000/api/users/userId/verify/token
+localhost:8080/api/users/userId/verify/token
 ```
 - **URL User**
 
 ```
-localhost:8000/api/users/userId
+localhost:8080/api/users/userId
 ```
 
 - **URL Forgot Password**
 
 ```
-localhost:8000/api/forgot-password
+localhost:8080/api/forgot-password
 
-localhost:8000/api/forgot-password/userId/tokenId
+localhost:8080/api/forgot-password/userId/tokenId
 ```
 
 - **URL Pet**
 
 ```
-localhost:8000/api/pets
+localhost:8080/api/pets
 
-localhost:8000/api/pets/petId
+localhost:8080/api/pets/petId
 ```
 
 - **URL Favorite**
 
 ```
-localhost:8000/api/favorites/userId/petId
+localhost:8080/api/favorites/userId/petId
 
-localhost:8000/api/favorites/userId
+localhost:8080/api/favorites/userId
 ```
 
 - **URL Adoption**
 
 ```
-localhost:8000/api/adoptions
+localhost:8080/api/adoptions
 
-localhost:8000/api/adoptions/userId/petId
+localhost:8080/api/adoptions/userId/petId
 
-localhost:8000/api/adoptions/userId
+localhost:8080/api/adoptions/userId
 ```
 
 - **URL Article**
 
 ```
-localhost:8000/api/articles
+localhost:8080/api/articles
 ```
 
 - **URL Donation**
 
 ```
-localhost:8000/api/donations
+localhost:8080/api/donations
 ```
 
 
@@ -106,5 +106,5 @@ cd pet_adoption
 yarn
 yarn dev
 
-open localhost:8000 in the browser
+open localhost:8080 in the browser
 ```
