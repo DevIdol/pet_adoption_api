@@ -1,0 +1,930 @@
+{
+	"info": {
+		"_postman_id": "608a0a6e-2353-441a-a884-09141f84ee3f",
+		"name": "Pet Adoption",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23684479"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Joseph\",\n    \"email\": \"devidol.mm@gmail.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{petadoption.mm}}/auth/register",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"devidol.mm@gmail.com\",\n    \"password\": \"654321\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{petadoption.mm}}/auth/login",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{petadoption.mm}}/auth/logout/63c766922528bd0ca01b8405",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"auth",
+								"logout",
+								"63c766922528bd0ca01b8405"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Verify Email",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{petadoption.mm}}/users/63d410f058e22726fe5eec03/verify/add5d691793066d1b5081b33efcca84b92446b92ef5d88a4b5c01ec8a3500f73",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"users",
+								"63d410f058e22726fe5eec03",
+								"verify",
+								"add5d691793066d1b5081b33efcca84b92446b92ef5d88a4b5c01ec8a3500f73"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{petadoption.mm}}/users/63d410f058e22726fe5eec03",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"users",
+								"63d410f058e22726fe5eec03"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"Joseph\",\n    \"email\": \"devidol.mm@gmail.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{petadoption.mm}}/users/63c766922528bd0ca01b8405",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"users",
+								"63c766922528bd0ca01b8405"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{petadoption.mm}}/users/63ca69ffce5599cf4ae9d8cb",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"users",
+								"63ca69ffce5599cf4ae9d8cb"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Forgot Password",
+			"item": [
+				{
+					"name": "Send Email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"devidol.mm@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{petadoption.mm}}/forgot-password",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Mail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/forgot-password/63c766922528bd0ca01b8405/6531d27adf677fefba736fc4d81145f5471a0fe637757668aa0580d717e4e3b6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"forgot-password",
+								"63c766922528bd0ca01b8405",
+								"6531d27adf677fefba736fc4d81145f5471a0fe637757668aa0580d717e4e3b6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"654321\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{petadoption.mm}}/forgot-password/63c766922528bd0ca01b8405/6531d27adf677fefba736fc4d81145f5471a0fe637757668aa0580d717e4e3b6",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"forgot-password",
+								"63c766922528bd0ca01b8405",
+								"6531d27adf677fefba736fc4d81145f5471a0fe637757668aa0580d717e4e3b6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pets",
+			"item": [
+				{
+					"name": "Get Pets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{petadoption.mm}}/pets",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"pets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pet Detail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{petadoption.mm}}/pets/63be4d42f8827f87e114918f",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"pets",
+								"63be4d42f8827f87e114918f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Favorites",
+			"item": [
+				{
+					"name": "Add Favorite",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "javascript"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{petadoption.mm}}/favorites/63c766922528bd0ca01b8405/63be4ce5f8827f87e1149184",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"favorites",
+								"63c766922528bd0ca01b8405",
+								"63be4ce5f8827f87e1149184"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Favorite",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{petadoption.mm}}/favorites/63c766922528bd0ca01b8405",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"favorites",
+								"63c766922528bd0ca01b8405"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Favorite",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{petadoption.mm}}/favorites/63c766922528bd0ca01b8405/63d4ee4f35ceb04656e69000",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"favorites",
+								"63c766922528bd0ca01b8405",
+								"63d4ee4f35ceb04656e69000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Adoptions",
+			"item": [
+				{
+					"name": "Create Adoption",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"desc\": \"I need this pet\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{petadoption.mm}}/adoptions/63ca69ffce5599cf4ae9d8cb/63be4ce5f8827f87e1149184",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"adoptions",
+								"63ca69ffce5599cf4ae9d8cb",
+								"63be4ce5f8827f87e1149184"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Adoption",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{petadoption.mm}}/adoptions/63c76e37afd8d31a3060facd",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"adoptions",
+								"63c76e37afd8d31a3060facd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Adoption",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{petadoption.mm}}/adoptions/63c76e37afd8d31a3060facd/63d5455a76fa813eb5de6276",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"adoptions",
+								"63c76e37afd8d31a3060facd",
+								"63d5455a76fa813eb5de6276"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Adoption",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{petadoption.mm}}/adoptions",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"adoptions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Articles",
+			"item": [
+				{
+					"name": "Get Article",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{petadoption.mm}}/articles",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"articles"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Donations",
+			"item": [
+				{
+					"name": "Get Donations",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{petadoption.mm}}/donations",
+							"host": [
+								"{{petadoption.mm}}"
+							],
+							"path": [
+								"donations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Get All User",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{admin.adoption.mm}}/users",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete User",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{admin.adoption.mm}}/users/63c9ff959bce2b81734db34f",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"users",
+										"63c9ff959bce2b81734db34f"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Approved User",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{admin.adoption.mm}}/approved-user/63c9ff959bce2b81734db34f",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"approved-user",
+										"63c9ff959bce2b81734db34f"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Approved Admin",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{admin.adoption.mm}}/approved-admin/63c9ff959bce2b81734db34f",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"approved-admin",
+										"63c9ff959bce2b81734db34f"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Adoptions",
+					"item": [
+						{
+							"name": "Get Adoptions",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{admin.adoption.mm}}/adoptions",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"adoptions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Adoption",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{admin.adoption.mm}}/adoptions/63c76e37afd8d31a3060facd/63d54147473ca5693deecb92",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"adoptions",
+										"63c76e37afd8d31a3060facd",
+										"63d54147473ca5693deecb92"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Is Adoption",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{admin.adoption.mm}}/adoable-pets/63be4ce5f8827f87e1149184",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"adoable-pets",
+										"63be4ce5f8827f87e1149184"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Pets",
+					"item": [
+						{
+							"name": "Create Pet",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{admin.adoption.mm}}/pets",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"pets"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Pet",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{admin.adoption.mm}}/pets/63be4d81f8827f87e114919a",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"pets",
+										"63be4d81f8827f87e114919a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Pet",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Diacy\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{admin.adoption.mm}}/pets/63be4ce5f8827f87e1149184",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"pets",
+										"63be4ce5f8827f87e1149184"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Donation",
+					"item": [
+						{
+							"name": "Create Donation",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{admin.adoption.mm}}/donations",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"donations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Donation",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{admin.adoption.mm}}/donations/63c5552b309bd0310db84f60",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"donations",
+										"63c5552b309bd0310db84f60"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Donation",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"itemName\": \"Dog Food\",\n    \"quantity\": \"20\",\n    \"description\": \"Please donate for the dog\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{admin.adoption.mm}}/donations/63c2aef7ba60c0506ec9c212",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"donations",
+										"63c2aef7ba60c0506ec9c212"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Article",
+					"item": [
+						{
+							"name": "Create Article",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{admin.adoption.mm}}/articles",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"articles"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Article",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n     \"title\": \"What is the most popular dog breed in the Myanmar?\",\n            \"description\": \"What are the most popular dog breeds in the US? Depends who you ask! From Retrievers to German Shepards, there are many fan favorites that come to mind. But such a question can be quite subjective— what does a popular pet mean to you? Good looks, charm or trainability perhaps? The all-American dog doesn’t have to be ones\",\n            \"category\": \"dog\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{admin.adoption.mm}}/articles/63c3ba4f8397b38f0cb0d8f0",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"articles",
+										"63c3ba4f8397b38f0cb0d8f0"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Article",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{admin.adoption.mm}}/articles/63c3ba4f8397b38f0cb0d8f0",
+									"host": [
+										"{{admin.adoption.mm}}"
+									],
+									"path": [
+										"articles",
+										"63c3ba4f8397b38f0cb0d8f0"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
